@@ -1,6 +1,9 @@
+import 'package:authify_app/pages/home_page.dart';
 import 'package:authify_app/utils/animations/login_page_animations.dart';
+import 'package:authify_app/utils/page_routes/fade_page_route.dart';
 import 'package:flutter/material.dart';
 
+//This class is responsible for containing or managing the logic of the animation _controller
 class AnimatedLoginPage extends StatefulWidget {
   const AnimatedLoginPage({super.key});
 
@@ -10,12 +13,12 @@ class AnimatedLoginPage extends StatefulWidget {
 
 class _AnimatedLoginPageState extends State<AnimatedLoginPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
+    _controller = AnimationController(
         vsync: this,
         duration: const Duration(seconds: 2),
         reverseDuration: const Duration(milliseconds: 400));
@@ -24,15 +27,16 @@ class _AnimatedLoginPageState extends State<AnimatedLoginPage>
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _LoginPage(controller);
+    return _LoginPage(_controller);
   }
 }
 
+// ignore: must_be_immutable
 class _LoginPage extends StatelessWidget {
   late double deviceHeight;
   late double deviceWidth;
@@ -73,7 +77,7 @@ class _LoginPage extends StatelessWidget {
               SizedBox(
                 height: deviceHeight * 0.10,
               ),
-              _loginButton(),
+              _loginButton(context),
             ],
           ),
         ),
@@ -89,7 +93,8 @@ class _LoginPage extends StatelessWidget {
       builder: (context, child) {
         return Transform(
           alignment: Alignment.center,
-          transform: Matrix4.diagonal3Values(_animation.circleSize.value, _animation.circleSize.value, 1),
+          transform: Matrix4.diagonal3Values(
+              _animation.circleSize.value, _animation.circleSize.value, 1),
           child: Container(
             height: circleD,
             width: circleD,
@@ -151,12 +156,19 @@ class _LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _loginButton() {
+  Widget _loginButton(BuildContext context) {
     return MaterialButton(
       minWidth: deviceWidth * 0.38,
       height: deviceHeight * 0.05,
       color: Colors.white,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(
+          context,
+          FadePageRoute(
+            HomePage(),
+          ),
+        );
+      },
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
           side: const BorderSide(color: Colors.white)),

@@ -6,6 +6,6 @@ class EnterAnimation {
         CurvedAnimation(parent: controller, curve: Curves.easeInOutBack));
   }
 
-  AnimationController controller;
+  late AnimationController controller;
   late Animation<double> circleSize;
 }
