@@ -1,4 +1,6 @@
+import 'package:authify_app/pages/login_page.dart';
 import 'package:authify_app/utils/animations/login_page_animations.dart';
+import 'package:authify_app/utils/page_routes/slide_page_route.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedHomePage extends StatefulWidget {
@@ -106,7 +108,9 @@ class _HomePage extends StatelessWidget {
       minWidth: deviceWidth * 0.38,
       height: deviceHeight * 0.05,
       color: Colors.white,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(context, SlidePageRoute(const AnimatedLoginPage()));
+      },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25.0),
         side: BorderSide(color: primaryColor, width: 3),
